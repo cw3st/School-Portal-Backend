@@ -3,7 +3,7 @@ require("dotenv").config();
 const port = 5000;
 const express = require("express");
 const mongoose = require("mongoose");
-const Users = require("./model/users");
+const Users = require("./model/Users");
 const school = require("express")();
 const bcrypt = require("bcrypt");
 const http = require("http").createServer(school);
