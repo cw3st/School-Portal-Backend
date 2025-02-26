@@ -7,7 +7,7 @@ const Users = require("./model/users");
 const school = require("express")();
 const bcrypt = require("bcrypt");
 const http = require("http").createServer(school);
-const sp = "mongodb://localhost:27017/Portal";
+const sp = "mongodb+srv://cecdev28:cecschoolportal@cluster0.n0e1q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const { verify } = require("jsonwebtoken");
@@ -239,13 +239,13 @@ school.post("/addinfo", async (req, res) => {
     console.log(update);
 
     try {
-      const sucess = await update.updateOne({
+      const success = await update.updateOne({
          shade: 200,
          take: "paper",
          
       });
 
-      if (sucess) {
+      if (success) {
         return res.status(200).send("sucess");
       }
     } catch (error) {
@@ -261,7 +261,7 @@ school.post("/addinfo", async (req, res) => {
 
 school.post("/moreinfo", async (req, res) => {
   try {
-    const update = Users.findOne({ email: "emmaturner@gmail.com" });
+    const update = Users.findOne({ email: "wesleyking@gmail.com" });
     console.log(update);
 
     try {
