@@ -23,7 +23,7 @@ const connectionparams = {
 
 const corsOption = {
   credentials: true,
-  origin: ["http://localhost:5173", "https://school-portal-backend-95k8.onrender.com"],
+  origin: ["http://localhost:5173"],
   methods: ["GET", "POST"],
   optionSucessStatus: 200,
 };
