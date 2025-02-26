@@ -13,8 +13,6 @@ const jwt = require("jsonwebtoken");
 const { verify } = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const multerError = require("./handleError");
-const upload = require("./imageValidation");
-const Wes = require("./model/Wes");
 
 school.use(multerError);
 
