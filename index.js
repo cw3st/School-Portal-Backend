@@ -34,12 +34,19 @@ school.use(express.json());
 school.use(express.urlencoded({ extended: true }));
 
 const validateToken = async (req, res, next) => {
-  const usersToken =
+  let usersToken =
     req.headers["x-access-token"] ||
     req.cookies.soks ||
     req.headers["authorization"];
 
-  if (!usersToken) return res.status(405).json({ message: "No auth found" });
+  if (!usersToken) {
+    return res.status(405).json({ message: "No auth found" });
+  }
+
+  // If Authorization header exists, extract token after "Bearer"
+  if (usersToken.startsWith("Bearer ")) {
+    usersToken = usersToken.split(" ")[1];
+  }
 
   try {
     verify(usersToken, "ACCESS_TOKEN_SECRET", (err, decoded) => {
@@ -47,7 +54,7 @@ const validateToken = async (req, res, next) => {
         console.error(err);
         return res.status(403).json({ message: "Invalid token" });
       }
-      req.decoded = decoded;
+      req.decoded = decoded; // Attach decoded token payload to request
       next();
     });
   } catch (error) {
@@ -55,7 +62,6 @@ const validateToken = async (req, res, next) => {
     return res.status(500).json({ message: "Error validating token" });
   }
 };
-
 // const validatedToken = async (req, res, next) => {
 //   const usersToken =
 //     req.headers["x-access-token"] ||
@@ -197,7 +203,7 @@ school.get("/logout", async (req, res, next) => {
 });
 
 school.get("/me", validateToken, async (req, res) => {
-  var token =
+  let token =
     req.cookies.soks ||
     req.headers["x-access-token"] ||
     req.headers["authorization"];
@@ -208,9 +214,14 @@ school.get("/me", validateToken, async (req, res) => {
       .send("You cannot perform any activities until you are logged in");
   }
 
+  // Extract token from "Bearer <token>"
+  if (token.startsWith("Bearer ")) {
+    token = token.split(" ")[1];
+  }
+
   verify(token, "ACCESS_TOKEN_SECRET", async (err, decoded) => {
     if (err) {
-      return res.status(403).json({ message: "inavlid token" });
+      return res.status(403).json({ message: "Invalid token" });
     } else {
       req.decoded = decoded;
 
@@ -220,7 +231,6 @@ school.get("/me", validateToken, async (req, res) => {
         );
         if (user) {
           return res.send(user);
-
         } else {
           return res.status(403).send("Unable to fetch your requested data");
         }
