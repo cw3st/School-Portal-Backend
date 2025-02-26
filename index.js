@@ -23,7 +23,7 @@ const connectionparams = {
 
 const corsOption = {
   credentials: true,
-  origin: ["http://localhost:5173"],
+  origin: ["http://localhost:5173", "https://kingster-university.netlify.app/"],
   methods: ["GET", "POST"],
   optionSucessStatus: 200,
 };
