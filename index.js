@@ -5,7 +5,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Users = require("./model/Users");
 const school = require("express")();
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const http = require("http").createServer(school);
 const sp = "mongodb+srv://cecdev28:cecschoolportal@cluster0.n0e1q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const cors = require("cors");
