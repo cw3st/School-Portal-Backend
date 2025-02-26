@@ -21,13 +21,16 @@ const connectionparams = {
   useUnifiedTopology: true,
 };
 
-const corsOption = {
-  credentials: true,
-  origin: ["http://localhost:5173", "https://kingster-university.netlify.app/"],
-  methods: ["GET", "POST"],
-  optionSucessStatus: 200,
-};
-school.use(cors(corsOption));
+const alllowedOrigins = [ "https://kingster-university.netlify.app" ]
+
+school.use(
+  cors({
+    origin: alllowedOrigins,
+    credentials: true,
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 school.use(cookieParser());
 
 school.use(express.json());
