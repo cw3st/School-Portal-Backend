@@ -21,7 +21,7 @@ const connectionparams = {
   useUnifiedTopology: true,
 };
 
-const alllowedOrigins = [ "https://kingster-university.netlify.app" ]
+const alllowedOrigins = [ "https://kingster-university.netlify.app","http://localhost:5173" ]
 
 school.use(
   cors({
